@@ -1,0 +1,44 @@
+
+services:
+  dbserver:
+    image: mysql:8
+    container_name: dbserver
+    environment:
+      MYSQL_ROOT_PASSWORD: admin     # contraseña root
+      MYSQL_DATABASE: practica       # DB inicial
+    ports:
+      - "3307:3306"                  # acceso desde Workbench
+    volumes:
+      - dbdata:/var/lib/mysql        # persistencia de datos
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - mynet
+
+  webserver:
+    image: nginx:stable
+    container_name: webserver
+    ports:
+      - "8080:80"                    # web estática
+    volumes:
+      - ./web:/usr/share/nginx/html:ro
+    depends_on:
+      - dbserver
+    networks:
+      - mynet
+
+  practicaweb:
+    build: .                         # se construye desde Dockerfile
+    container_name: practicaweb
+    ports:
+      - "8081:80"                    # app PHP
+    depends_on:
+      - dbserver
+    networks:
+      - mynet
+
+volumes:
+  dbdata:
+
+networks:
+  mynet:
+    external: true              # ya existe una red (mynet), creada en la parte I
