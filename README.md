@@ -143,8 +143,16 @@ INSERT INTO usuarios (nombre) VALUES ('Arias Diego'), ('Godoy Sergio'), ('Ferrar
   docker exec -i dbserver mysql -uroot -padmin < init.sql
   ```
 
-## 🔹 Autores / Colaboradores
+## 🔹 Imagen pública en Docker Hub
 
-- Agustín C. Ferrari  
-- Diego Arias  
-- Sergio Godoy  
+La imagen del proyecto está disponible en Docker Hub:
+
+👉 [https://hub.docker.com/r/agustin62/practica-docker-practicaweb](https://hub.docker.com/r/agustin62/practica-docker-practicaweb)
+
+Para ejecutarla directamente:
+
+```bash
+docker pull agustin62/practica-docker-practicaweb
+docker run -d -p 8081:80 agustin62/practica-docker-practicaweb
+
+
