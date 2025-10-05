@@ -172,4 +172,12 @@ Ubicarse en la carpeta que contenga `docker-compose.yml` y ejecutá:
 ```bash
 docker compose up -d
 
+```
+## 🔹 Enlaces de los repositorios 
+
+https://github.com/AgustinCFerrari/practica-docker
+
+https://hub.docker.com/repositories/agustin62?search=docker
+
+
 
