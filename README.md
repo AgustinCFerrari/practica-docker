@@ -153,7 +153,7 @@ Este proyecto levanta un entorno completo con **tres servicios**:
 2. **App PHP** (Apache) publicada en Docker Hub: `agustin62/practica-docker-practicaweb`  
 3. **Nginx estático** publicado en Docker Hub: `agustin62/practica-docker-webstatic`  
 
-> El objetivo es que cualquier persona pueda reproducir la práctica **sin archivos locales extra** y con **un único comando**.
+El objetivo es que cualquier persona pueda reproducir la práctica **sin archivos locales extra** y con **un único comando**.
 
 ---
 
