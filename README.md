@@ -1,4 +1,4 @@
-# 📦 Práctica Formativa II – Dockerización de Proyecto Web
+# Práctica Formativa II – Dockerización de Proyecto Web
 
 Este repositorio contiene el proyecto de la **Práctica Formativa Obligatoria N°2**, donde se dockeriza una aplicación web simple con servicios de **MySQL**, **Nginx** y **PHP+Apache**.  
 
@@ -145,14 +145,31 @@ INSERT INTO usuarios (nombre) VALUES ('Arias Diego'), ('Godoy Sergio'), ('Ferrar
 
 ## 🔹 Imagen pública en Docker Hub
 
-La imagen del proyecto está disponible en Docker Hub:
+- **Docker (MySQL + PHP/Apache + Nginx estático)**
 
-👉 [https://hub.docker.com/r/agustin62/practica-docker-practicaweb](https://hub.docker.com/r/agustin62/practica-docker-practicaweb)
+Este proyecto levanta un entorno completo con **tres servicios**:
 
-Para ejecutarla directamente:
+1. **MySQL 8** (base de datos)  
+2. **App PHP** (Apache) publicada en Docker Hub: `agustin62/practica-docker-practicaweb`  
+3. **Nginx estático** publicado en Docker Hub: `agustin62/practica-docker-webstatic`  
+
+> El objetivo es que cualquier persona pueda reproducir la práctica **sin archivos locales extra** y con **un único comando**.
+
+---
+
+- **Requisitos**
+
+- Docker Desktop (incluye Docker Compose v2)
+- Conexión a Internet (para descargar imágenes)
+- Puertos libres: `8080`, `8081` y **preferentemente** `3307` (o `3306`)
+
+---
+
+- **Levantar el entorno**
+
+Ubicarse en la carpeta que contenga `docker-compose.yml` y ejecutá:
 
 ```bash
-docker pull agustin62/practica-docker-practicaweb
-docker run -d -p 8081:80 agustin62/practica-docker-practicaweb
+docker compose up -d
 
 
