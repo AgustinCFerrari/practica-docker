@@ -12,3 +12,4 @@ COPY src/ ./
 
 # Exponemos el puerto interno 80
 EXPOSE 80
+

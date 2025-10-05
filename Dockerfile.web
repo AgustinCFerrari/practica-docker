@@ -1,0 +1,5 @@
+# Imagen base de Nginx
+FROM nginx:stable
+
+# Copiamos la carpeta web (HTML/CSS/JS)
+COPY web/ /usr/share/nginx/html/

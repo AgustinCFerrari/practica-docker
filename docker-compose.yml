@@ -4,41 +4,35 @@ services:
     image: mysql:8
     container_name: dbserver
     environment:
-      MYSQL_ROOT_PASSWORD: admin     # contraseña root
-      MYSQL_DATABASE: practica       # DB inicial
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: practica
     ports:
-      - "3307:3306"                  # acceso desde Workbench
+      - "3307:3306"                 # cambia a "3307:3306" si 3306 está ocupado
     volumes:
-      - dbdata:/var/lib/mysql        # persistencia de datos
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-    networks:
-      - mynet
-
-  webserver:
-    image: nginx:stable
-    container_name: webserver
-    ports:
-      - "8080:80"                    # web estática
-    volumes:
-      - ./web:/usr/share/nginx/html:ro
-    depends_on:
-      - dbserver
-    networks:
-      - mynet
+      - dbdata:/var/lib/mysql       # persistencia de datos sin montar carpetas locales
+    healthcheck:                    # evita que PHP arranque antes de que MySQL
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-padmin"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
 
   practicaweb:
-    build: .                         # se construye desde Dockerfile
+    image: agustin62/practica-docker-practicaweb         # se carga desde DockerHub
     container_name: practicaweb
     ports:
-      - "8081:80"                    # app PHP
+      - "8081:80"                                        # app PHP
     depends_on:
       - dbserver
-    networks:
-      - mynet
+
+  webserver:
+    image: agustin62/practica-docker-webstatic            # se carga desde DockerHub
+    container_name: webserver
+    depends_on:
+      - dbserver
+    ports:
+      - "8080:80"                   # Sitio estático accesible en http://localhost:8080
+    volumes:
+      - ${PWD}/web:/usr/share/nginx/html:ro   # monta carpeta 'web' local al contenedor con PowerShell
 
 volumes:
   dbdata:
-
-networks:
-  mynet:
-    external: true              # ya existe una red (mynet), creada en la parte I
