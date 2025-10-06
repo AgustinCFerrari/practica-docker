@@ -1,38 +1,38 @@
 
 services:
   dbserver:
-    image: mysql:8
-    container_name: dbserver
+    image: agustin62/practica-docker-db  # Imagen personalizada de MySQL
     environment:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: practica
     ports:
-      - "3307:3306"                 # cambia a "3307:3306" si 3306 está ocupado
+      - "3307:3306"               # cambia a "3307:3306" si 3306 está ocupado
     volumes:
-      - dbdata:/var/lib/mysql       # persistencia de datos sin montar carpetas locales
-    healthcheck:                    # evita que PHP arranque antes de que MySQL
+      - dbdata:/var/lib/mysql   # persistencia de datos sin montar carpetas locales
+    healthcheck:                # evita que PHP arranque antes de que MySQL esté listo
       test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-padmin"]
       interval: 5s
       timeout: 3s
       retries: 10
+    restart: unless-stopped
 
   practicaweb:
-    image: agustin62/practica-docker-practicaweb         # se carga desde DockerHub
-    container_name: practicaweb
-    ports:
-      - "8081:80"                                        # app PHP
+    image: agustin62/practica-docker-practicaweb # Imagen personalizada de la aplicación web
     depends_on:
-      - dbserver
+      dbserver:
+        condition: service_healthy
+    ports:
+      - "8081:80"             # http://localhost:8081 para acceder a la aplicación web
+    restart: unless-stopped
 
   webserver:
-    image: agustin62/practica-docker-webstatic            # se carga desde DockerHub
-    container_name: webserver
+    image: agustin62/practica-docker-webstatic # Imagen personalizada del servidor web estático
     depends_on:
-      - dbserver
+      dbserver:
+        condition: service_healthy
     ports:
-      - "8080:80"                   # Sitio estático accesible en http://localhost:8080
-    volumes:
-      - ${PWD}/web:/usr/share/nginx/html:ro   # monta carpeta 'web' local al contenedor con PowerShell
+      - "8080:80"             # http://localhost:8080 para acceder al servidor web estático
+    restart: unless-stopped
 
 volumes:
   dbdata:

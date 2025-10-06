@@ -170,6 +170,7 @@ El objetivo es que cualquier persona pueda reproducir la práctica **sin archivo
 Ubicarse en la carpeta que contenga `docker-compose.yml` y ejecutá:
 
 ```bash
+docker compose down -v   # borra contenedores + volumen (datos)
 docker compose up -d
 
 ```

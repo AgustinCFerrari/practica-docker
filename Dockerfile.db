@@ -1,0 +1,4 @@
+# Imagen base de MySQL
+FROM mysql:8
+# Copiá todo tu SQL (pueden ser varios .sql/.sh/.sql.gz)
+COPY sql/ /docker-entrypoint-initdb.d/
