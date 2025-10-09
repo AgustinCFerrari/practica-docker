@@ -1,11 +1,10 @@
 # Práctica Formativa II – Dockerización de Proyecto Web
 
 Grupo 15
+
 Comisión D
 
-Arias Diego
-Godoy Sergio
-Ferrari Agustín
+Integrantes: Arias Diego, Godoy Sergio y Ferrari Agustín
 
 Este repositorio contiene el proyecto de la **Práctica Formativa Obligatoria N°2**, donde se dockeriza una aplicación web simple con servicios de **MySQL**, **Nginx** y **PHP+Apache**.  
 
@@ -19,7 +18,8 @@ practica-docker/
 │  └─ index.php
 ├─ web/                    # Archivos estáticos servidos por Nginx
 │  └─ index.html
-└─ init.sql                # Script de inicialización de MySQL
+├─ sql/
+│  └─ init.sql             # Script de inicialización de MySQL
 ```
 
 ## 🔹 Servicios incluidos
